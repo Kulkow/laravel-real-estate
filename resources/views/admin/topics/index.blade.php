@@ -14,7 +14,7 @@
         @foreach ($topics as $topic)
             <div class="py-12">
                 <div class="py-10">
-                    <i>{{ $topic->id }}</i> - {{ $topic->title }}
+                    <i>{{ $topic->id }}</i> - {{ $topic->title }} - {{ $topic->author_id }}
                 </div>
                 <div class="py-2">
                     <a href="{{ route('topic.view', ['id' => $topic->id]) }}">

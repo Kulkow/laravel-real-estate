@@ -18,5 +18,6 @@ class Topic extends Model
     protected $fillable = [
         'title',
         'description',
+        'author_id',
     ];
 }
