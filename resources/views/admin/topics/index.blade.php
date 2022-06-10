@@ -11,18 +11,25 @@
         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('topic.add') }}">
             {{ __('Topics add') }}
         </a>
-        @foreach ($topics as $topic)
-            <div class="py-12">
-                <div class="py-10">
-                    <i>{{ $topic->id }}</i> - {{ $topic->title }} - {{ $topic->author_id }}
-                </div>
-                <div class="py-2">
-                    <a href="{{ route('topic.view', ['id' => $topic->id]) }}">
-                        {{ __('Topics view') }}
-                    </a>
-                </div>
-            </div>
-        @endforeach
+                    <table class="table">
+                        @foreach ($topics as $topic)
+                            <tr>
+                                <td>{{ $topic->id }}</td>
+                                <td>{{ $topic->title }}</td>
+                                <td>{{ $topic->author_id }}</td>
+                                <td>
+                                    <a href="{{ route('topic.view', ['id' => $topic->id]) }}">
+                                        {{ __('Topics view') }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('topic.edit', ['id' => $topic->id]) }}">
+                                        {{ __('Topics edit') }}
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
