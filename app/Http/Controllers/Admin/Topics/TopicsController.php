@@ -59,6 +59,7 @@ class TopicsController extends Controller{
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function update($id, EditTopicRequest  $request){
+        exit(4444);
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
@@ -70,14 +71,15 @@ class TopicsController extends Controller{
         if (! $response->allowed()) {
             abort(403, $response->message());
         }
-        if ($request->isMethod('post')) {
-            $input = $request->collect()->all();
-            $topic = $topic->fill($input);
-            $topic->author_id = Auth::id();
-            if($topic->save()){
-                return redirect('/admin/topics');
-            }
+
+
+        $input = $request->collect()->all();
+        $topic = $topic->fill($input);
+        $topic->author_id = Auth::id();
+        if($topic->save()){
+            return redirect('/admin/topics');
         }
+        return view('admin.topics.edit', ['id' => $id, 'topic' => $topic]);
 
     }
 
