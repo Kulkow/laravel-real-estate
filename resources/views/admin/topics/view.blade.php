@@ -9,6 +9,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <i>{{ $topic->id }}</i> - {{ $topic->title }}
+                    @if ($topic->author)
+                        <div class="author">
+                            <b>{{ $topic->author->email}}</b> {{ $topic->author->name}}
+                        </div>
+                    @endif
                     <div>
                         {{ $topic->description }}
                     </div>

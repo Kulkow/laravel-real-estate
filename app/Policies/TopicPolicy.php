@@ -25,7 +25,7 @@ class TopicPolicy
         return true;
     }
     public function edit (User $user, Topic $topic) {
-        return $user->id == $topic->author_id;
+        return $user->id == $topic->author_id ? Response::allow() : Response::deny('You do not own this topic.');;
     }
     public function update (User $user, Topic $topic) {
         return $user->id == $topic->author_id ? Response::allow() : Response::deny('You do not own this topic.');;

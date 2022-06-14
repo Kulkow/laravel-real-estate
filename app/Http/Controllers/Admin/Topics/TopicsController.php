@@ -47,7 +47,7 @@ class TopicsController extends Controller{
         if(! $topic){
             throw new NotFoundHttpException('Not found topic '.$id);
         }
-        $response = Gate::inspect('update', $topic);
+        $response = Gate::inspect('edit', $topic);
         if (! $response->allowed()) {
             abort(403, $response->message());
         }
@@ -59,7 +59,6 @@ class TopicsController extends Controller{
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function update($id, EditTopicRequest  $request){
-        exit(4444);
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
@@ -77,7 +76,7 @@ class TopicsController extends Controller{
         $topic = $topic->fill($input);
         $topic->author_id = Auth::id();
         if($topic->save()){
-            return redirect('/admin/topics');
+            return redirect('/admin/topic/'.$id);
         }
         return view('admin.topics.edit', ['id' => $id, 'topic' => $topic]);
 
@@ -87,10 +86,11 @@ class TopicsController extends Controller{
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
-        $topic = Topic::find($id);
+        $topic = Topic::with('author')->find($id);
         if(! $topic){
             throw new NotFoundHttpException('Not found topic '.$id);
         }
+
         return view('admin.topics.view', ['topic' => $topic]);
     }
 }

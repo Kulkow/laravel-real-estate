@@ -20,4 +20,9 @@ class Topic extends Model
         'description',
         'author_id',
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }

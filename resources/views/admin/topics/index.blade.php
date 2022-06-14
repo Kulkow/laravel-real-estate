@@ -9,9 +9,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('topic.add') }}">
-            {{ __('Topics add') }}
+            {{ __('topic.Topics add') }}
         </a>
-                    <table class="table">
+                    <table class="table" style="width: 100%;">
                         @foreach ($topics as $topic)
                             <tr>
                                 <td>{{ $topic->id }}</td>
@@ -19,12 +19,12 @@
                                 <td>{{ $topic->author_id }}</td>
                                 <td>
                                     <a href="{{ route('topic.view', ['id' => $topic->id]) }}">
-                                        {{ __('Topics view') }}
+                                        {{ __('topic.view') }}
                                     </a>
                                 </td>
                                 <td>
                                     <a href="{{ route('topic.edit', ['id' => $topic->id]) }}">
-                                        {{ __('Topics edit') }}
+                                        {{ __('topic.edit') }}
                                     </a>
                                 </td>
                             </tr>
