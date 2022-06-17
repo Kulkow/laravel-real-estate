@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Topics;
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\Topic;
 use \Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -70,11 +71,13 @@ class TopicsController extends Controller{
         if (! $response->allowed()) {
             abort(403, $response->message());
         }
-
-
         $input = $request->collect()->all();
         $topic = $topic->fill($input);
         $topic->author_id = Auth::id();
+        if($picture = $request->file('picture')){
+            $image = new Image();
+            $topic->picture_id = $image->saveStorage($picture,$topic, $topic->picture_id);
+        }
         if($topic->save()){
             return redirect('/admin/topic/'.$id);
         }
@@ -86,7 +89,7 @@ class TopicsController extends Controller{
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
-        $topic = Topic::with('author')->find($id);
+        $topic = Topic::with(['author', 'picture'])->find($id);
         if(! $topic){
             throw new NotFoundHttpException('Not found topic '.$id);
         }

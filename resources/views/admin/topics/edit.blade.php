@@ -18,7 +18,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('topic.update', ['id' => $id]) }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('topic.update', ['id' => $id]) }}">
                         @csrf
                         <!-- Title -->
                         <div>
@@ -29,10 +29,17 @@
                         <!-- description Address -->
                         <div class="mt-4">
                             <x-label for="description" :value="__('topic.description')"/>
-                            <x-textarea id="description" class="block mt-1 w-full @error('description') is-invalid @enderror" name="description"  >
+                            <x-textarea id="description" class="block mt-1 w-full @error('description') is-invalid @enderror" name="description">
                                 {{ $topic->description }}
                             </x-textarea>
                         </div>
+                        <!-- Image -->
+                        <div>
+                            <x-label for="picture" :value="__('topic.picture')"/>
+                            <x-input id="picture" class="block mt-1 w-full @error('picture') is-invalid @enderror" type="file" name="picture"
+                            />
+                        </div>
+                        <input type="hidden" name="picture_id" value="{{$topic->picture_id}}" />
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-4">
                                 {{ __('Edit') }}

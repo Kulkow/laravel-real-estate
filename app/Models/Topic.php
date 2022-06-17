@@ -19,10 +19,16 @@ class Topic extends Model
         'title',
         'description',
         'author_id',
+        'picture_id',
     ];
 
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function picture()
+    {
+        return $this->belongsTo(Image::class, 'picture_id');
     }
 }

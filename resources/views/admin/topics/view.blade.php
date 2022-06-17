@@ -14,6 +14,11 @@
                             <b>{{ $topic->author->email}}</b> {{ $topic->author->name}}
                         </div>
                     @endif
+                    @if ($topic->picture)
+                        <div class="picture">
+                            <img src="{{ $topic->picture->link()}}" alt="{{$topic->picture->title()}}" />
+                        </div>
+                    @endif
                     <div>
                         {{ $topic->description }}
                     </div>

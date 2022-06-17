@@ -26,6 +26,7 @@ class EditTopicRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
+            'picture' => 'file',
         ];
     }
 }
