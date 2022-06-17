@@ -36,9 +36,13 @@
                         <!-- Image -->
                         <div>
                             <x-label for="picture" :value="__('topic.picture')"/>
-                            <x-input id="picture" class="block mt-1 w-full @error('picture') is-invalid @enderror" type="file" name="picture"
-                            />
+                            <x-input id="picture" class="block mt-1 w-full @error('picture') is-invalid @enderror" type="file" name="picture" />
                         </div>
+                        @if ($topic->picture)
+                            <div class="picture">
+                                <img src="{{ $topic->picture->link()}}" alt="{{$topic->picture->title()}}" style="width: 200px;" />
+                            </div>
+                        @endif
                         <input type="hidden" name="picture_id" value="{{$topic->picture_id}}" />
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-4">

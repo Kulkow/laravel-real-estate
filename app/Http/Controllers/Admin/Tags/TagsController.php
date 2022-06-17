@@ -1,23 +1,23 @@
 <?php
-namespace App\Http\Controllers\Admin\Topics;
+
+namespace App\Http\Controllers\Admin\Tags;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Topic\EditTopicRequest;
 use App\Models\Image;
+use App\Models\Tag;
 use App\Models\Topic;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use App\Http\Requests\Topic\EditTopicRequest;
 
-
-class TopicsController extends Controller{
+class TagsController extends Controller{
 
     public function index(){
-        $topics = Topic::paginate(20);
-        return view('admin.topics.index', ['topics' => $topics]);
+        $list = Tag::paginate(20);
+        return view('admin.crud.index', ['list' => $list]);
     }
-
 
     /**
      * @param  \Illuminate\Http\Request  $request
@@ -26,13 +26,12 @@ class TopicsController extends Controller{
     public function add(Request  $request){
         if ($request->isMethod('post')) {
             $input = $request->collect()->all();
-            $topic = Topic::create($input);
-            $topic->author_id = Auth::id();
-            if($topic->save()){
-                return redirect('/admin/topics');
+            $tag = Tag::create($input);
+            if($tag->save()){
+                return redirect('/admin/tags');
             }
         }
-        return view('admin.topics.add');
+        return view('admin.crud.add');
     }
 
 
@@ -56,32 +55,23 @@ class TopicsController extends Controller{
     }
 
     /**
-     * @param  \App\Http\Requests\Topic\EditTopicRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function update($id, EditTopicRequest  $request){
+    public function update($id, Request  $request){
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
-        $topic = Topic::find($id);
-        if(! $topic){
-            throw new NotFoundHttpException('Not found topic '.$id);
-        }
-        $response = Gate::inspect('update', $topic);
-        if (! $response->allowed()) {
-            abort(403, $response->message());
+        $tag = Tag::find($id);
+        if(! $tag){
+            throw new NotFoundHttpException('Not found tag '.$id);
         }
         $input = $request->collect()->all();
-        $topic = $topic->fill($input);
-        $topic->author_id = Auth::id();
-        if($picture = $request->file('picture')){
-            $image = new Image();
-            $topic->picture_id = $image->saveStorage($picture,$topic, $topic->picture_id);
-        }
+        $topic = $tag->fill($input);
         if($topic->save()){
-            return redirect('/admin/topic/'.$id);
+            return redirect('/admin/tags/'.$id);
         }
-        return view('admin.topics.edit', ['id' => $id, 'topic' => $topic]);
+        return view('admin.crud.edit', ['id' => $id, 'topic' => $topic]);
 
     }
 
@@ -89,7 +79,7 @@ class TopicsController extends Controller{
         if(! $id){
             throw new NotFoundHttpException('Not found topic id');
         }
-        $topic = Topic::with(['author', 'picture'])->find($id);
+        $topic = Tag::find($id);
         if(! $topic){
             throw new NotFoundHttpException('Not found topic '.$id);
         }
