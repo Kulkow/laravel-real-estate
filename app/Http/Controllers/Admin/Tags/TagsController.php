@@ -12,26 +12,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class TagsController extends Controller{
+class TagsController extends Controller
+{
 
-    public function index(){
+    public function index()
+    {
         $list = Tag::paginate(20);
-        return view('admin.crud.index', ['list' => $list]);
+        return view('admin.crud.index', ['list' => $list, 'crud_model' => 'tags']);
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function add(Request  $request){
+    public function add(Request $request)
+    {
         if ($request->isMethod('post')) {
             $input = $request->collect()->all();
             $tag = Tag::create($input);
-            if($tag->save()){
+            if ($tag->save()) {
                 return redirect('/admin/tags');
             }
         }
-        return view('admin.crud.add');
+        return view('admin.crud.add', ['crud_model' => 'tags']);
     }
 
 
@@ -39,51 +42,51 @@ class TagsController extends Controller{
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function edit($id = null){
-        if(! $id){
-            throw new NotFoundHttpException('Not found topic id');
+    public function edit($id = null)
+    {
+        if (!$id) {
+            throw new NotFoundHttpException('Not found tag id');
         }
-        $topic = Topic::with(['author', 'picture'])->find($id);
-        if(! $topic){
-            throw new NotFoundHttpException('Not found topic '.$id);
+        $tag = Tag::find($id);
+        if (!$tag) {
+            throw new NotFoundHttpException('Not found tag ' . $id);
         }
-        $response = Gate::inspect('edit', $topic);
-        if (! $response->allowed()) {
-            abort(403, $response->message());
-        }
-        return view('admin.topics.edit', ['id' => $id, 'topic' => $topic]);
+
+        return view('admin.crud.edit', ['id' => $id, 'entity' => $tag, 'crud_model' => 'tags']);
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function update($id, Request  $request){
-        if(! $id){
+    public function update($id, Request $request)
+    {
+        if (!$id) {
             throw new NotFoundHttpException('Not found topic id');
         }
         $tag = Tag::find($id);
-        if(! $tag){
-            throw new NotFoundHttpException('Not found tag '.$id);
+        if (!$tag) {
+            throw new NotFoundHttpException('Not found tag ' . $id);
         }
         $input = $request->collect()->all();
-        $topic = $tag->fill($input);
-        if($topic->save()){
-            return redirect('/admin/tags/'.$id);
+        $tag = $tag->fill($input);
+        if ($tag->save()) {
+            return redirect('/admin/tags/' . $id);
         }
-        return view('admin.crud.edit', ['id' => $id, 'topic' => $topic]);
+        return view('admin.crud.edit', ['id' => $id, 'entity' => $tag, 'crud_model' => 'tags']);
 
     }
 
-    public function view($id){
-        if(! $id){
+    public function view($id)
+    {
+        if (!$id) {
             throw new NotFoundHttpException('Not found topic id');
         }
-        $topic = Tag::find($id);
-        if(! $topic){
-            throw new NotFoundHttpException('Not found topic '.$id);
+        $tag = Tag::find($id);
+        if (!$tag) {
+            throw new NotFoundHttpException('Not found tag ' . $id);
         }
 
-        return view('admin.topics.view', ['topic' => $topic]);
+        return view('admin.crud.view', ['id' => $id, 'entity' => $tag, 'crud_model' => 'tags']);
     }
 }
