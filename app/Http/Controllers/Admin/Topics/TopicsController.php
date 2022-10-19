@@ -14,9 +14,11 @@ use App\Http\Requests\Topic\EditTopicRequest;
 class TopicsController extends Controller{
 
     public function index(){
-        $topics = Topic::paginate(20);
-        return view('admin.topics.index', ['topics' => $topics]);
+        /*$topics = Topic::paginate(20);
+        return view('admin.topics.index', ['topics' => $topics]);*/
+        return view('admin.topics.index');
     }
+
 
 
     /**

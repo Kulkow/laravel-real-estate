@@ -11,37 +11,47 @@
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('topic.add') }}">
                         {{ __('topic.Topics add') }}
                     </a>
-                    <table class="table" style="width: 100%;">
-                        @foreach ($topics as $topic)
-                            <tr>
-                                <td>{{ $topic->id }}</td>
-                                <td>{{ $topic->title }}</td>
-                                <td>{{ $topic->author_id }}</td>
+                    <div id="app-test-v" data-token="1|bvvzC3ndTJkbpieCCI7unbZ9vLWOqzwvJomMt1Wl">
+                        <div v-if="view">
+                            <p>@{{view.id}}</p>
+                            <p>@{{view.title}}</p>
+                            <pre>@{{view.description}}</pre>
+                            <div v-if="view.picture">
+                                <img src="view.picture.">
+                            </div>
+                        </div>
+                        <table  class="table" style="width: 100%;">
+                            <tr v-for="item in items">
+                                <td><b>@{{ item.id }}</b></td>
+                                <td>@{{ item.title }}</td>
+                                <td>@{{ item.author_id }}</td>
                                 <td>
-                                    <a href="{{ route('topic.view', ['id' => $topic->id]) }}">
+                                    <a :href="`/api/topic/${item.id}`" @click.stop.prevent="viewTopic(item.id)" title="{{ __('topic.view') }}">
                                         {{ __('topic.view') }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('topic.edit', ['id' => $topic->id]) }}">
+                                    <a :href="`/api/topic/edit/${item.id}`"  title="{{ __('topic.edit') }}">
                                         {{ __('topic.edit') }}
                                     </a>
                                 </td>
                             </tr>
-                        @endforeach
-                    </table>
+                        </table>
+                        <ul class="paginate">
+                            <li v-for="link in links">
+                                <span v-if="link.url!==null" :class="{ active: link.active }" @click="getTopicsLink(link.url)" :href="`${link.url}`">@{{ link.label }}</span>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    {{ $topics->links() }}
-    <div id="app-test-v">
-        <button @click="count++">
-            Count is: @{{ count }}
-        </button>
-    </div>
-    <script src="{{ mix('js/topics.js') }}" defer></script>
 
+
+
+    <script src="{{ mix('js/topics.js') }}" defer></script>
 </x-app-layout>
 
 
