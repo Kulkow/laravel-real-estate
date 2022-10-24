@@ -16,4 +16,6 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
-mix.js('resources/js/topics.js', 'public/js').vue({ "version": 3 });
+mix.js(['resources/js/topics.js'], 'public/js/topics.js').vue({ "version": 3 });
+
+

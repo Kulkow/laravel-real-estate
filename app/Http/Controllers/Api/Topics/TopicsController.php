@@ -2,9 +2,10 @@
 namespace App\Http\Controllers\Api\Topics;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use App\Http\Resources\TopicCollection;
 
 class TopicsController extends Controller
 {
@@ -23,6 +24,7 @@ class TopicsController extends Controller
             throw new NotFoundHttpException('Not found topic '.$id);
         }
 
-        return $topic;
+        //return $topic;
+        return new TopicResource($topic);
     }
 }
