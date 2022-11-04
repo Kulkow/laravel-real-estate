@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')
         Route::controller(TopicsController::class)->group(function (){
             Route::get('/topics', 'index');
             Route::get('/topic/{id}', 'view');
+            Route::get('/topic/edit/{id}', 'edit');
         });
     });

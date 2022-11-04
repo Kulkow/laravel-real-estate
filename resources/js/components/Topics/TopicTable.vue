@@ -1,28 +1,25 @@
 <template>
-    <div class="overflow-x-auto relative">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <TopicTableItem v-for="item in items" :item="item">
-            </TopicTableItem>
-        </table>
-    </div>
-    <Paginator title="test"></Paginator>
-    <div class="box-border w-400 p-4 border-4" v-if="view">
-        <div class="">{{view.id}}</div>
-        <p>{{view.title}}</p>
-        <pre>{{view.description}}</pre>
-        <div v-if="view.picture_view">
-            <img :src="view.picture_view.src" :alt="view.picture_view.alt" class="w-24 h-24 rounded-full">
+    <div class="container mx-auto">
+        <div class="overflow-hidden relative">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <TopicTableItem v-for="item in items" :item="item">
+                </TopicTableItem>
+            </table>
         </div>
     </div>
+    <Paginator title="test"></Paginator>
+    <TopicView></TopicView>
+    <TopicEdit></TopicEdit>
 </template>
-
 <script>
 import Paginator from "../Paginator";
 import TopicTableItem from "./TopicTableItem";
+import TopicView from "./TopicView";
+import TopicEdit from "./TopicEdit";
 
 export default {
     name: "TopicTable",
-    components: {Paginator, TopicTableItem},
+    components: {Paginator, TopicTableItem, TopicView, TopicEdit},
     props: ['auth-token'],
     created() {
 
@@ -37,6 +34,7 @@ export default {
             items: [],
             links: [],
             view: {},
+            edit: {},
             headers: {}
         };
     },
@@ -54,20 +52,20 @@ export default {
             });
             return !1;
         },
-        setDataList(response){
+        setDataList(response) {
             let _this = this;
             let data = [],
                 links = [];
-            if(response.hasOwnProperty('data')){
+            if (response.hasOwnProperty('data')) {
                 let _data = response.data;
-                if(_data.hasOwnProperty('data')){
+                if (_data.hasOwnProperty('data')) {
                     data = _data.data;
-                    if(_data.hasOwnProperty('links')){
+                    if (_data.hasOwnProperty('links')) {
                         links = _data.links;
                     }
-                }else{
+                } else {
                     data = _data;
-                    if(response.hasOwnProperty('links')){
+                    if (response.hasOwnProperty('links')) {
                         links = response.links;
                     }
                 }

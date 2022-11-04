@@ -10,7 +10,7 @@
             </a>
         </td>
         <td>
-            <a :href="`/api/topic/edit/${item.id}`" title="'topic.edit">
+            <a :href="`/api/topic/edit/${item.id}`" @click.stop.prevent="editTopic(item.id)" title="'topic.edit">
                 topic.edit
             </a>
         </td>
@@ -39,7 +39,6 @@ export default {
                 headers: _this.headers
             };
             axios.get('/api/topic/' + _id, config).then(function (response) {
-                console.log('response >>',  response);
                 let data = {};
                 if(response.hasOwnProperty('data')){
                     data = response.data;
@@ -47,8 +46,23 @@ export default {
                         data = data.data;
                     }
                 }
-                console.log('data >>',data);
                 _this.$parent.view = data;
+            });
+        },
+        editTopic(_id) {
+            let _this = this;
+            const config = {
+                headers: _this.headers
+            };
+            axios.get('/api/topic/edit/' + _id, config).then(function (response) {
+                let data = {};
+                if(response.hasOwnProperty('data')){
+                    data = response.data;
+                    if(data.hasOwnProperty('data')){
+                        data = data.data;
+                    }
+                }
+                _this.$parent.edit = data;
             });
         }
     }
