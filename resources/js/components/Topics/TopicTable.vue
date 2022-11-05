@@ -29,6 +29,15 @@ export default {
         this.headers = {Authorization: 'Bearer ' + authToken};
         this.getTopics(1);
     },
+    watch : {
+        edit: {
+            handler(newValue, oldValue) {
+                /*console.log(oldValue);
+                console.log(newValue);*/
+            },
+            deep: true
+        }
+    },
     data() {
         return {
             items: [],

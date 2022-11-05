@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')
             Route::get('/topics', 'index');
             Route::get('/topic/{id}', 'view');
             Route::get('/topic/edit/{id}', 'edit');
+            Route::post('/topic/update/{id}', 'update');
         });
     });
