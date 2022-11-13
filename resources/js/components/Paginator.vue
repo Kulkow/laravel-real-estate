@@ -1,4 +1,5 @@
 <template>
+    <div class="my-5">
         <nav :aria-label="title">
             <ul class="inline-flex items-center -space-x-px">
                 <li v-for="(link, key) in $parent.links">
@@ -11,6 +12,7 @@
                 </li>
             </ul>
         </nav>
+    </div>
 </template>
 
 <script>

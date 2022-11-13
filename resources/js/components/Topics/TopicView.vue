@@ -1,5 +1,5 @@
 <template>
-    <div class="box-border w-400 p-4 border-4" v-if="$parent.view">
+    <div  v-if="$parent.view" class="topic-view">
         <div class=""><b>{{$parent.view.id}}</b></div>
         <p>{{$parent.view.title}}</p>
         <pre>{{$parent.view.description}}</pre>

@@ -16,6 +16,13 @@ class EditApiTopicRequest extends FormRequest
         return Auth::check();
     }
 
+    public function validationData()
+    {
+        $data =  $this->all();
+        //dd($data);
+        return $data;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

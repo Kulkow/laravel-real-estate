@@ -38,10 +38,12 @@ class Image extends Model
     public function deleteFile($id = null) : bool
     {
         $image = static::find($id);
-        if($image->path){
-            $path = $image->path();
-            if(Storage::delete($path)){
-                return $image->delete();
+        if($image instanceof Image){
+            if($image->path){
+                $path = $image->path();
+                if(Storage::delete($path)){
+                    return $image->delete();
+                }
             }
         }
         return false;
@@ -76,6 +78,7 @@ class Image extends Model
                 'filesize' => $file->getSize(),
             ];
             if($this->fill($save)->save()){
+                $oldId = intval($oldId);
                 if($oldId){
                     $this->deleteFile($oldId);
                 }

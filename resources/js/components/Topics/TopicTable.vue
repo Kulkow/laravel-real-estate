@@ -1,5 +1,13 @@
 <template>
-    <div class="container mx-auto">
+    <div class="flex flex-row my-10">
+        <div class="w-1/2">
+            <TopicView></TopicView>
+        </div>
+        <div class="w-1/2">
+            <TopicEdit></TopicEdit>
+        </div>
+    </div>
+    <div class="container mx-auto my-10">
         <div class="overflow-hidden relative">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <TopicTableItem v-for="item in items" :item="item">
@@ -8,8 +16,6 @@
         </div>
     </div>
     <Paginator title="test"></Paginator>
-    <TopicView></TopicView>
-    <TopicEdit></TopicEdit>
 </template>
 <script>
 import Paginator from "../Paginator";
