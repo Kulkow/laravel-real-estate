@@ -4,6 +4,8 @@
 use App\Http\Controllers\Admin\Topics\TopicsController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Admin\Tags\TagsController;
+use App\Http\Controllers\Admin\Pm\EmployesContoller;
+use App\Http\Controllers\Admin\Pm\StatisticTasksContoller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -30,6 +32,19 @@ Route::prefix('admin')
         });
 
 
+        Route::controller(EmployesContoller::class)->group(function (){
+            Route::any('/pm/employe/add', 'add')->name('employe.add');
+            Route::get('/pm/employe/edit/{id}', 'edit')->name('employe.edit');
+            Route::post('/pm/employe/update/{id}', 'update')->name('employe.update');
+            Route::get('/pm/employe/{id}', 'view')->name('employe.view');
+            Route::get('/pm/employes', 'index')->name('employes');
+        });
+
+        Route::controller(StatisticTasksContoller::class)->group(function (){
+            Route::any('/pm/statistic-tasks/add/{id}', 'add')->name('statistic_task.add');
+            Route::get('/pm/statistic-tasks', 'index')->name('statistic_tasks');
+            Route::get('/pm/statistic-tasks/graphic/{id}', 'graphic')->name('statistic_tasks.graphic');
+        });
 
         Route::get('/tokens/create', function (Request $request) {
             $token = $request->user()->createToken($request->token_name);
