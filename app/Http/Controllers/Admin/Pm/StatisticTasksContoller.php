@@ -19,14 +19,15 @@ class StatisticTasksContoller extends Controller
         return view('admin.pm.statistics.index', ['list' => $list,]);
     }
 
-    public function graphic($id = null)
+    public function graphic($id = null, Request $request)
     {
         $employe = Employe::find($id);
         if(! $employe){
             throw new NotFoundHttpException('not find employe');
         }
-        $start = date('Y-m-d', strtotime('monday this week'));
-        $end = date('Y-m-d', strtotime('sunday this week'));
+        $week = $request->query('week', 'this');
+        $start = date('Y-m-d', strtotime('monday '.$week.' week'));
+        $end = date('Y-m-d', strtotime('sunday '.$week.' week'));
         $whereStats = [
             [
                 'employe_id', $id

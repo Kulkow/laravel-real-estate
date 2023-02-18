@@ -16,30 +16,30 @@
                     @if(! empty($statistics['days']))
                         <div class="grid grid-cols-2">
                             @foreach ($statistics['days'] as $day => $stat)
-                                <div class="item-day mb-10 pr-5">
+                                <div class="item-day mb-5 pr-5">
                                     <p class="italic">{{$day}}</p>
                                     <div>
                                         @if($stat['complete'] >= $stat['plan'])
-                                            <p class="bg-green-100">
+                                            <p class="bg-green-200">
                                                 Было выполнено - {{$stat['complete']}} из {{$stat['plan']}}
                                             </p>
                                         @else
-                                            <p class="bg-red-100">
+                                            <p class="bg-red-500">
                                                 Было выполнено - {{$stat['complete']}} из {{$stat['plan']}}
                                             </p>
                                         @endif
-                                        <div class="mb-5">
+                                        <div class="mb-2">
                                             @foreach ($stat['tasks']['plans'] as $key => $link)
                                                 @if(! empty($stat['tasks']['completed']))
-                                                    <p class="bg-green-100">{{$link}}</p>
+                                                    <p class="bg-green-500">{{$link}}</p>
                                                 @else
-                                                    <p class="bg-red-100">{{$link}}</p>
+                                                    <p class="bg-red-500">{{$link}}</p>
                                                 @endif
                                             @endforeach
                                         </div>
                                         @if(! empty($stat['tasks']['not_completed']))
-                                            <div class="mb-5">
-                                                <div class="bg-red-100">
+                                            <div class="mb-2">
+                                                <div class="bg-red-500">
                                                     Не выполнены :
                                                 </div>
                                                 @foreach ($stat['tasks']['not_completed'] as $key => $link)
@@ -48,8 +48,8 @@
                                             </div>
                                         @endif
                                         @if(! empty($stat['tasks']['not_plans']))
-                                            <div class="mb-5">
-                                                <div class="bg-green-100">
+                                            <div class="mb-2">
+                                                <div class="bg-green-500">
                                                     Не по плану :
                                                 </div>
                                                 @foreach ($stat['tasks']['not_plans'] as $key => $link)
