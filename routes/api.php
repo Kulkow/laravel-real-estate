@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Topics\TopicsController;
+use App\Http\Controllers\Admin\Pm\SheetsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,5 +25,11 @@ Route::middleware('auth:sanctum')
             Route::get('/topic/{id}', 'view');
             Route::get('/topic/edit/{id}', 'edit');
             Route::post('/topic/update/{id}', 'update');
+        });
+        Route::controller(SheetsController::class)->group(function (){
+            //Route::get('/sheets/users', 'users')->name('api.sheets.tasks');
+            Route::get('/sheets/pm', 'pm')->name('sheets.pm');
+            Route::get('/sheets/tasks/{id}', 'tasks')->name('api.sheets.tasks');
+            Route::post('/sheets/add/{id}', 'add')->name('api.sheets.add');
         });
     });

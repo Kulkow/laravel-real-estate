@@ -1,7 +1,10 @@
 /node_modules
 /public/hot
 /public/storage
+
 /storage/*.key
+/storage/secret-google
+/storage/chrome-ext
 /vendor
 .env
 .env.backup
@@ -13,3 +16,4 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/storage/secret-google/*

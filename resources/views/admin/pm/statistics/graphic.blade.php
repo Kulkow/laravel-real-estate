@@ -31,9 +31,13 @@
                                         <div class="mb-2">
                                             @foreach ($stat['tasks']['plans'] as $key => $link)
                                                 @if(! empty($stat['tasks']['completed']))
-                                                    <p class="bg-green-500">{{$link}}</p>
+                                                    <p class="bg-green-500">
+                                                        <a href="{{$link}}" target="_blank">{{$link}}</a>
+                                                    </p>
                                                 @else
-                                                    <p class="bg-red-500">{{$link}}</p>
+                                                    <p class="bg-red-500">
+                                                        <a href="{{$link}}" target="_blank">{{$link}}</a>
+                                                    </p>
                                                 @endif
                                             @endforeach
                                         </div>

@@ -1,0 +1,15 @@
+{
+  "name": "Laravel Pm",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://pm.is2b.ru/*"],
+      "js": ["laravel-pm.js"]
+    }
+  ],
+  "action": {}
+}

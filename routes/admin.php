@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Admin\Tags\TagsController;
 use App\Http\Controllers\Admin\Pm\EmployesContoller;
 use App\Http\Controllers\Admin\Pm\StatisticTasksContoller;
+use App\Http\Controllers\Admin\Pm\SheetsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,14 @@ Route::prefix('admin')
         Route::get('/tokens/create', function (Request $request) {
             $token = $request->user()->createToken($request->token_name);
             return ['token' => $token->plainTextToken];
+        });
+
+        Route::controller(SheetsController::class)->group(function (){
+            Route::get('/sheets/', 'index')->name('sheets');
+            Route::get('/sheets/users', 'users')->name('sheets.users');
+            Route::get('/sheets/pm', 'pm')->name('sheets.pm');
+            Route::get('/sheets/tasks/{id}', 'tasks')->name('sheets.tasks');
+            Route::post('/sheets/add/{id}', 'add')->name('sheets.add');
         });
     });
 
